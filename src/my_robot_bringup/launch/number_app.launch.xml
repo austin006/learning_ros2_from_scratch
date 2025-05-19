@@ -1,0 +1,21 @@
+<!-- First Example -->
+<!-- <launch>
+    <node pkg="my_py_pkg" exec="number_publisher"/>
+    <node pkg="my_py_pkg" exec="number_counter"/>
+</launch> -->
+
+<!-- Second Example -->
+<launch>
+    <node pkg="my_py_pkg" exec="number_publisher" name="num_pub1">
+        <remap from="/number" to="/my_number" />
+        <param name="number" value="3" />
+        <param name="publish_period" value="1.5" />
+    </node>
+    <node pkg="my_py_pkg" exec="number_publisher" name="num_pub2">
+        <remap from="/number" to="/my_number" />
+        <param from="$(find-pkg-share my_robot_bringup)/config/number_params.yaml" />
+    </node>
+    <node pkg="my_py_pkg" exec="number_counter">
+        <remap from="/number" to="/my_number" />
+    </node>
+</launch>

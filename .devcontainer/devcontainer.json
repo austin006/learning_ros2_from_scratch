@@ -1,0 +1,38 @@
+{
+    "name": "ROS 2 Development Container",
+    "remoteUser": "frostin006",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "USERNAME": "frostin006"
+        }
+    },
+    "runArgs": [
+        //"--network=ros2_net",              // Connect to custom network
+        //"--ip=192.168.1.10",             // Static IP
+        //"-p=7400-7500:7400-7500/udp"      // DDS ports
+        //"-p=5353:5353/udp"                 // Optional: mDNS
+    ],
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-themes",
+                "twxs.cmake",
+                "donjayamanne.python-extension-pack",
+                "eamodio.gitlens",
+                "ms-iot.vscode-ros"
+            ]
+        }
+    },
+    "containerEnv": {
+        //"ROS_DOMAIN_ID": "0"
+        //"ROS_AUTOMATIC_DISCOVERY_RANGE": "SUBNET"
+        //"RMW_IMPLEMENTATION": "rmw_cyclonedds_cpp"
+    },
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    ],
+    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths /workspace/src --ignore-src -y && colcon build"
+}
